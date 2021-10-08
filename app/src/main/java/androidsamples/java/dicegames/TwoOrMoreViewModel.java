@@ -21,7 +21,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    *
    * @return the balance
    */
-  public int balance() {
+  public static int balance() {
     // TODO implement method
     return 0;
   }
@@ -31,7 +31,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    *
    * @param balance the given amount
    */
-  public void setBalance(int balance) {
+  public static void setBalance(int balance) {
     // TODO implement method
   }
 
