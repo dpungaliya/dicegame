@@ -21,14 +21,24 @@ public class TwoOrMoreActivity extends AppCompatActivity {
   private static final String TAG="TwoOrMoreActivity";
   static final String KEY_BALANCE_RETURN="KEY_BALANCE_RETURN";
   private TwoOrMoreViewModel mTwoOrMoreVM;
-
+  private TextView mTwoOrMoreBalance;
+  private TextView mBtnDie1;
+  private TextView mBtnDie2;
+  private TextView mBtnDie3;
+  private TextView mBtnDie4;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_two_or_more);
 
-     mTwoOrMoreVM=new ViewModelProvider(this).get(TwoOrMoreViewModel.class);
+    mTwoOrMoreBalance=findViewById(R.id.txt_balance_twoormore);
+    mBtnDie1 = findViewById(R.id.txt_die1);
+    mBtnDie2 = findViewById(R.id.txt_die2);
+    mBtnDie3 = findViewById(R.id.txt_die3);
+    mBtnDie4 = findViewById(R.id.txt_die4);
+
+    mTwoOrMoreVM=new ViewModelProvider(this).get(TwoOrMoreViewModel.class);
 
     if(savedInstanceState==null){
       int balance=getIntent().getIntExtra(WalletActivity.KEY_BALANCE,0);
@@ -54,11 +64,11 @@ public class TwoOrMoreActivity extends AppCompatActivity {
     super.onBackPressed();
   }
 
-  public void launchWalletActivity(View view) {
-      Intent intent = new Intent(this, WalletActivity.class);
-      intent.putExtra(KEY_BALANCE_RETURN, String.valueOf(mTwoOrMoreVM));
-      startActivity(intent);
-    }
+//  public void launchWalletActivity(View view) {
+//      Intent intent = new Intent(this, WalletActivity.class);
+//      intent.putExtra(KEY_BALANCE_RETURN, String.valueOf(mTwoOrMoreVM));
+//      startActivity(intent);
+//    }
 
   public void showGameInfo(View view) {
     String url=getResources().getString(R.string.two_or_more_activity_url);

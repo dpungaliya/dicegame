@@ -127,7 +127,7 @@ public class WalletActivity extends AppCompatActivity {
     public void launchTwoOrMore(View view) {
       Intent intent = new Intent(this, TwoOrMoreActivity.class);
       intent.putExtra(KEY_BALANCE, mWalletVM.balance());
-      startActivity(intent);
+      startActivityForResult(intent,TWO_OR_MORE_GAME_REQUEST_CODE);
     }
 
     @Override

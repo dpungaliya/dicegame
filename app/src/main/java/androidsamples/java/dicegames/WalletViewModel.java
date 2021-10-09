@@ -41,6 +41,7 @@ public class WalletViewModel extends ViewModel {
    */
   public void setBalance(int amount) {
     // TODO implement method
+    amount=mBalance;
   }
 
   /**

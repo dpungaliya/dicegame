@@ -111,6 +111,16 @@ public class TwoOrMoreViewModel extends ViewModel {
    */
   public GameResult play() throws IllegalStateException {
     // TODO implement method
+    // Check if wager set or not
+// Check if wager valid
+// Check if Game type is set and Check if dice are sufficient
+// Roll die
+// Check for same value according to the game type
+// Update win/lose GameResult etc
+// Update balance
+// Return result
+
+
     return null;
   }
 }
