@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -33,6 +34,8 @@ public class TwoOrMoreActivity extends AppCompatActivity {
   private TextView mBtnDie4;
   private List<Integer> mDieVal;
   private Button mBtnGo;
+  private Button mBtnInfo;
+  private Button mBtnBack;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class TwoOrMoreActivity extends AppCompatActivity {
     mTwoOrMoreVM=new ViewModelProvider(this).get(TwoOrMoreViewModel.class);
     mTwoOrMoreBalance=findViewById(R.id.txt_balance_twoormore);
     mBtnGo=findViewById(R.id.btn_go);
+    mBtnInfo = findViewById(R.id.btn_info);
+    mBtnBack = findViewById(R.id.btn_back);
 
     Die d1=new Die6();
     Die d2=new Die6();
@@ -87,18 +92,25 @@ public class TwoOrMoreActivity extends AppCompatActivity {
       int wager=Integer.parseInt(wage);
       mTwoOrMoreVM.setWager(wager);
 
-//check if wager is correct,if yes do play else throw exception
 
       try{
         GameResult gr = mTwoOrMoreVM.play();
         Log.d(TAG,"Result");
+        toastMsg = (gr==GameResult.WIN) ? "Congratulations! You win!" : "Hard luck! You lost.";
       }
       catch(IllegalStateException e){
         toastMsg=e.getMessage();
       }
 
+       displayToast(duration,toastMsg);
+
     });
 
+  }
+
+   private void displayToast(int duration, String toastMsg) {
+    Toast toast = Toast.makeText(TwoOrMoreActivity.this, toastMsg, duration);
+    toast.show();
   }
 
   public void updateUI(){
@@ -109,6 +121,28 @@ public class TwoOrMoreActivity extends AppCompatActivity {
 //    mBtnDie4.setText(Integer.toString(mDieVal.get(3)));
 //    mTwoOrMoreBalance.setText(Integer.toString(mTwoOrMoreVM.balance()));
 
+  }
+
+  public void onRadioButtonClicked(View view) {
+
+    boolean checked = ((RadioButton) view).isChecked();
+
+
+    if(view.getId()==R.id.btn_2alike){
+      if(checked){
+        mTwoOrMoreVM.setGameType(GameType.TWO_ALIKE);
+      }
+    }
+    else if(view.getId()==R.id.btn_3alike){
+      if(checked){
+        mTwoOrMoreVM.setGameType(GameType.THREE_ALIKE);
+      }
+    }
+    else if(view.getId()==R.id.btn_4alike){
+      if(checked){
+        mTwoOrMoreVM.setGameType(GameType.FOUR_ALIKE);
+      }
+    }
   }
 
   public void returnToWallet(View view){

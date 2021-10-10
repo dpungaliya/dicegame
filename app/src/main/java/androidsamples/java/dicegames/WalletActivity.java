@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,23 +18,15 @@ import androidx.lifecycle.ViewModelProvider;
 public class WalletActivity extends AppCompatActivity {
     private static final int TWO_OR_MORE_GAME_REQUEST_CODE = 0;
 
-//  private static final int WIN_VALUE = 6;
-//  private static final int INCREMENT = 5;
-//
-//  private int mBalance;
-    private Die mDie;
-
+  private Die mDie;
   private TextView mTxtBalance;
   private Button mBtnDie;
 
-
   private WalletViewModel mWalletVM;
-
 
   public static final String TAG="WalletActivity";
 
   static final String KEY_BALANCE="KEY_BALANCE";
-//  private static final String KEY_DIE_VALUE="KEY_DIE_VALUE";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +34,6 @@ public class WalletActivity extends AppCompatActivity {
       Log.d(TAG, "onCreate");
       setContentView(R.layout.activity_wallet);
 
-      //mDie = new Die6();
       mTxtBalance = findViewById(R.id.txt_balance);
       mBtnDie = findViewById(R.id.btn_die);
 
@@ -49,38 +41,27 @@ public class WalletActivity extends AppCompatActivity {
       mDie = new Die6();
       mWalletVM.setDie(mDie);
       updateUI();
-//
-//      if (savedInstanceState != null) {
-//        mBalance = savedInstanceState.getInt(KEY_BALANCE, 0);
-//        int dieValue = savedInstanceState.getInt(KEY_DIE_VALUE, 0);
-//        mTxtBalance.setText(Integer.toString(mBalance));
-//        mBtnDie.setText(Integer.toString(dieValue));
-//        Log.d(TAG, "Restored: balance = " + mBalance + ", die = " + dieValue);
-//      }
+
 
       mBtnDie.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
               //roll the die
+              try{
               mWalletVM.rollDie();
+              }
+              catch(IllegalStateException e){
+                  String toastMsg = e.getMessage();
+                  int duration = Toast.LENGTH_SHORT;
+                  Toast toast = Toast.makeText(WalletActivity.this, toastMsg, duration);
+                  toast.show();
+              }
+
               updateUI();
 
-//              mDie.roll();
-//              Log.d(TAG, "Die Roll= " + mDie.value());
-//              //add coins if win_value is rolled
-//              if (mDie.value() == WIN_VALUE) {
-//                  mBalance += INCREMENT;
-//                  Log.d(TAG, "New Balance= " + mBalance);
-//              }
-//              //update the UI
-//              updateUI();
-//          }
-//          private void updateUI() {
-//              mBtnDie.setText(Integer.toString(mDie.value()));
-//              mTxtBalance.setText(Integer.toString(mBalance));
-//          }
           }
       });
+
 
   }
 
@@ -93,14 +74,6 @@ public class WalletActivity extends AppCompatActivity {
           mTxtBalance.setText(0);
         }
     }
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        Log.d(TAG, "onSaveInstanceState");
-//        outState.putInt(KEY_BALANCE, mBalance);
-//        outState.putInt(KEY_DIE_VALUE, mDie.value());
-//        Log.d(TAG, "Saved: balance = " + mBalance + ", die = " + mDie.value());
-//    }
 
     @Override
     protected void onStart(){

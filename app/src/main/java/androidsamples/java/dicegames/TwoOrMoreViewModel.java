@@ -16,12 +16,15 @@ import androidx.lifecycle.ViewModel;
 public class TwoOrMoreViewModel extends ViewModel {
 
   private static int twoOrMoreBalance;
-  //private Die d1,d2,d3,d4;
+  private Die d1,d2,d3,d4;
   private GameType mGameType;
   private int mWage;
   public String msg;
   //private List<Integer> mDiceValue;
   private List<Die>mTwoOrMoreDie;
+  private int numDie;
+  private int betAmt;
+  private GameResult mGR;
 
 
   /**
@@ -33,6 +36,7 @@ public class TwoOrMoreViewModel extends ViewModel {
     mTwoOrMoreDie = new ArrayList<>();
     mGameType=NONE;
     mWage=0;
+    numDie=0;
   }
 
   /**
@@ -106,27 +110,31 @@ public class TwoOrMoreViewModel extends ViewModel {
   public boolean isValidWager() {
     //use mWager
   boolean flag=false;
-
-//   if(mGameType==GameType.NONE){
-//      throw new IllegalStateException("Game Type not set, can't play!");
-//    }
+  int minBal=0;
 
   if(mWage==0)
     return false;
 
   if(mGameType==TWO_ALIKE){
-    if(twoOrMoreBalance>=2*mWage)
-      flag=true;
+    if(twoOrMoreBalance>=2*mWage) {
+      minBal=2*mWage;
+      flag = true;
+    }
   }
   else if(mGameType.name()=="THREE_ALIKE"){
-    if(twoOrMoreBalance>=3*mWage)
+    if(twoOrMoreBalance>=3*mWage){
       flag=true;
+      minBal=3*mWage;
+    }
+
   }
   else if(mGameType.name()=="FOUR_ALIKE"){
-    if(twoOrMoreBalance>=4*mWage)
+    if(twoOrMoreBalance>=4*mWage){
       flag=true;
+      minBal=4*mWage;
+    }
   }
-
+  betAmt=minBal;
     return flag;
   }
 
@@ -154,7 +162,6 @@ public class TwoOrMoreViewModel extends ViewModel {
   public void addDie(Die d) {
     // TODO implement method
     mTwoOrMoreDie.add(d);
-
   }
 
   /**
@@ -165,16 +172,6 @@ public class TwoOrMoreViewModel extends ViewModel {
    */
   public GameResult play() throws IllegalStateException {
     // TODO implement method
-    // Check if wager set or not
-// Check if wager valid
-// Check if Game type is set and Check if dice are sufficient
-// Roll die
-// Check for same value according to the game type
-// Update win/lose GameResult etc
-// Update balance
-// Return result
-
-
 
      if(mGameType== NONE){
       throw new IllegalStateException("Game Type not set, can't play!");
@@ -188,8 +185,40 @@ public class TwoOrMoreViewModel extends ViewModel {
       }
 
 
+//    if(mGameType == GameType.TWO_ALIKE){
+//      if(maxCount==2){
+//        mGR = GameResult.WIN;
+//      }
+//      else{
+//        mGR = GameResult.LOSS;
+//      }
+//    }
+//    else if(mGameType == GameType.THREE_ALIKE){
+//      if(maxCount==3){
+//        mGR = GameResult.WIN;
+//      }
+//      else{
+//        mGR = GameResult.LOSS;
+//      }
+//    }
+//    else if(mGameType == GameType.FOUR_ALIKE){
+//      if(maxCount==4){
+//        mGR = GameResult.WIN;
+//      }
+//      else{
+//        mGR = GameResult.LOSS;
+//      }
+//    }
 
 
+
+
+    if(mGR==GameResult.WIN){
+      twoOrMoreBalance += betAmt;
+    }
+    else{
+      twoOrMoreBalance -= betAmt;
+    }
 
     return null;
   }
