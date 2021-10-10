@@ -13,6 +13,7 @@ public class Die6 implements Die {
 
   public Die6() {
     // TODO implement method
+    //mValue=0;
     mRng=new Random();
   }
 

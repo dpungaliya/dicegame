@@ -20,7 +20,7 @@ public class WalletViewModel extends ViewModel {
   public WalletViewModel() {
     // TODO implement method
     mBalance=0;
-    mDie=new Die6();
+    //mDie=new Die6();
   }
 
   /**
@@ -41,7 +41,7 @@ public class WalletViewModel extends ViewModel {
    */
   public void setBalance(int amount) {
     // TODO implement method
-    amount=mBalance;
+    mBalance=amount;
   }
 
   /**
@@ -49,20 +49,26 @@ public class WalletViewModel extends ViewModel {
    */
   public void rollDie() {
     // TODO implement method
+
+    if(mDie==null) {
+      throw new IllegalStateException();
+    }
+
+
     mDie.roll();
-    Log.d(TAG, "Die Roll= " + mDie.value());
+    //Log.d(TAG, "Die Roll= " + mDie.value());
 
     //add coins if win_value is rolled
     if (mDie.value() == WIN_VALUE) {
       mBalance += INCREMENT;
-      Log.d(TAG, "New Balance= " + mBalance);
+      //Log.d(TAG, "New Balance= " + mBalance);
     }
   }
 
   @Override
   protected void onCleared(){
     super.onCleared();
-    Log.d(TAG,"onCleared");
+    //Log.d(TAG,"onCleared");
   }
 
 
@@ -101,5 +107,6 @@ public class WalletViewModel extends ViewModel {
    */
   public void setDie(Die d) {
     // TODO implement method
+    mDie=d;
   }
 }

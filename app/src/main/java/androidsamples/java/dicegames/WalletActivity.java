@@ -21,10 +21,11 @@ public class WalletActivity extends AppCompatActivity {
 //  private static final int INCREMENT = 5;
 //
 //  private int mBalance;
-//  private Die mDie;
+    private Die mDie;
 
   private TextView mTxtBalance;
   private Button mBtnDie;
+
 
   private WalletViewModel mWalletVM;
 
@@ -45,6 +46,8 @@ public class WalletActivity extends AppCompatActivity {
       mBtnDie = findViewById(R.id.btn_die);
 
       mWalletVM=new ViewModelProvider(this).get(WalletViewModel.class);
+      mDie = new Die6();
+      mWalletVM.setDie(mDie);
       updateUI();
 //
 //      if (savedInstanceState != null) {
@@ -82,8 +85,13 @@ public class WalletActivity extends AppCompatActivity {
   }
 
     private void updateUI() {
-        mTxtBalance.setText(Integer.toString(mWalletVM.balance()));
-        mBtnDie.setText(Integer.toString(mWalletVM.dieValue()));
+      try {
+          mTxtBalance.setText(Integer.toString(mWalletVM.balance()));
+          mBtnDie.setText(Integer.toString(mWalletVM.dieValue()));
+      }
+      catch(Exception e){
+          mTxtBalance.setText(0);
+        }
     }
 //    @Override
 //    protected void onSaveInstanceState(@NonNull Bundle outState) {

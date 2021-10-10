@@ -4,7 +4,7 @@
   <string name="coins">Coins</string>
   <string name="zero">0</string>
   <string name="six_faced_die">Six faced die</string>
-  <string name="launch_two_or_more">Launch BlackJack</string>
+  <string name="launch_two_or_more">Two or More</string>
   <string name="stop">Stop</string>
   <string name="wager">Wager</string>
   <string name="roll">Roll</string>
@@ -14,4 +14,5 @@
   <string name="four_alike">4 alike</string>
   <string name="back">Back</string>
   <string name="info">Info</string>
+  <string name="two_or_more_activity_url">https://docs.google.com/document/d/17C68XuL1kwLCDa8nXkbplySicnKUlOn-/edit</string>
 </resources>
